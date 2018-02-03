@@ -1,0 +1,8 @@
+title: quora-backup
+description: A syncing approach to backing up Quora content.
+google_analytics: UA-50435266-1
+show_downloads: true
+theme: jekyll-theme-slate
+
+gems:
+  - jekyll-mentions
