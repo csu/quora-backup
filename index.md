@@ -1,4 +1,6 @@
-# quora-backup
+# Quora Backup
+
+#### Note: parts of this script may be broken due to changes on Quora's end. Please open issues and make pull requests regarding this at [csu/pyquora](http://github.com/csu/pyquora).
 
 A syncing approach to backing up Quora answers, questions, votes, and follows. Rather than fetching your entire history of Quora activity all at once, quora-backup checks your recent Quora activity and saves only the new entries. **Run it regularly to maintain a full backup.** This not only allows backups to be performed faster and more frequently, but also makes less requests to Quora's servers and doesn't face request rate-limiting issues like some older backup techniques do. It supports backing up to **JSON and CSV**. More file formats and databases to come.
 
@@ -38,14 +40,17 @@ $ python backup.py --help
 Usage: backup.py [OPTIONS] USER
 
 Options:
-  -p, --path TEXT                 Specify a path at which to store the
-                                  backup files.
-  -t, --type [answers|questions|upvotes|question_follows]
+  -p, --path TEXT                 Specify a path at which to store the backup
+                                  files.
+  -t, --type [answers|questions|upvotes|user_follows|review_requests]
                                   Specify only one type of activity to be
                                   backed up.
-  -f, --format [json|csv]         Specify a format for the backup. Defaults
-                                  to JSON.
-  --help                          Show this message and exit.                 Show this message and exit.
+  -f, --format [json|csv|mongodb]
+                                  Specify a format for the backup. Defaults to
+                                  JSON.
+  -m, --mongodburi TEXT           Specify a MongoDB URI. If not specified,
+                                  tries localhost.
+  --help                          Show this message and exit.
 ```
 
 ### Backup Formats
@@ -63,7 +68,8 @@ Your content will be stored in the following files, in whatever directory you ru
     answers.json
     questions.json
     upvotes.json
-    question_follows.json
+    user_follows.json
+    review_requests.json
 
 #### CSV Backup Details
 Your content will be stored in the following files, in whatever directory you run the above command in:
@@ -71,7 +77,8 @@ Your content will be stored in the following files, in whatever directory you ru
     answers.csv
     questions.csv
     upvotes.csv
-    question_follows.csv
+    user_follows.csv
+    review_requests.csv
 
 The resulting CSV output will have columns (fields/attributes) delimited by commas and rows (entries) delimited by new lines. The first row will be a header row, containing the names of the fields.
 
